@@ -1,5 +1,8 @@
 const vscode = require('vscode');
 
+const iconList = ['🦑', '🦐', '🦀', '🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍈', '🍒', '🍑', '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥒', '🌶', '🌽', '🥕', '🥔', '🥐', '🍠', '🍞', '🥖', '🥨', '🧀', '🥚', '🥞', '🥓', '🥩', '🍗', '🍖', '🌭', '🍔', '🍟', '🍕', '🥪', '🌮', '🌯', '🥘', '🥗', '🍝', '🥫', '🥘', '🍜', '🍲', '🍝', '🍛', '🍣', '🍱', '🥟', '🍤', '🍚', '🍥', '🥠', '🍢', '🍡', '🍧', '🍨', '🍦', '🥧', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🌰', '🥜', '🍯', '🥛', '🍼️', '🍵', '🥤', '🍶', '🍺', '🍻', '🍷', '🥃', '🍸', '🍹', '🍾', '🥡'];
+const colorList = ["#42b983", "#33A5FF", "#B03734", "#2EAFB0", "#6EC1C2", "#ED9EC7", "#FCA650", "#3F7CFF", "#93C0A4", "#EA7E5C", "#F5CE50", "#465975", "#FFDD4D", "#7F2B82", "#4b4b4b", "#E41A6A"];
+
 const insertText = (val) => {
     const editor = vscode.window.activeTextEditor;
 
@@ -59,7 +62,11 @@ function activate(context) {
         text
             ? vscode.commands.executeCommand('editor.action.insertLineAfter')
                 .then(() => {
-                    const logToInsert = `console.log('${text}: ', ${text});`;
+                    const iconIndex = Math.floor(Math.random() * iconList.length);
+                    const colorIndex = Math.floor(Math.random() * colorList.length);
+                    const style = `font-size:20pt;background-color: ${colorList[colorIndex]};color:#fff;`
+                    const str = `${text}`.replace(/\'|\"/g, '');
+                    const logToInsert = `console.log('%c${iconList[iconIndex]} ${str}: ', '${style}', ${text});`;
                     insertText(logToInsert);
                 })
             : insertText('console.log();');
