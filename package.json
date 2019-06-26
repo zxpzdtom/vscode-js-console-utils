@@ -2,8 +2,8 @@
     "name": "vscode-js-console-utils",
     "displayName": "javascript console utils",
     "description": "Help insert and remove console.(*) statements",
-    "version": "0.7.0",
-    "publisher": "whtouche",
+    "version": "1.1.0",
+    "publisher": "vscode-convert-utils",
     "repository": "https://github.com/whtouche/vscode-js-console-utils",
     "engines": {
         "vscode": "^1.5.0"
