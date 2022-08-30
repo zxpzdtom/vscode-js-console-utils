@@ -1,57 +1,178 @@
 {
-    "name": "vscode-js-console-utils",
-    "displayName": "javascript console utils",
-    "description": "Help insert and remove console.(*) statements",
-    "version": "1.1.2",
-    "publisher": "vscode-convert-utils",
-    "icon": "logo.png",
-    "repository": "https://github.com/qq444716720/vscode-js-console-utils",
-    "engines": {
-        "vscode": "^1.5.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.insertLogStatement",
-        "onCommand:extension.deleteAllLogStatements"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.insertLogStatement",
-                "title": "Insert Log Statement"
-            },
-            {
-                "command": "extension.deleteAllLogStatements",
-                "title": "Delete all console.log statements"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "extension.insertLogStatement",
-                "key": "shift+ctrl+l",
-                "mac": "shift+cmd+l",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "extension.deleteAllLogStatements",
-                "key": "shift+ctrl+d",
-                "mac": "shift+cmd+d"
-            }
-        ]
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
-        "eslint": "^3.6.0",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
-    }
+	"name": "vscode-js-console-utils",
+	"displayName": "javascript console utils",
+	"description": "Help insert and remove console.(*) statements",
+	"version": "1.2.0",
+	"publisher": "vscode-convert-utils",
+	"icon": "logo.png",
+	"repository": "https://github.com/qq444716720/vscode-js-console-utils",
+	"engines": {
+		"vscode": "^1.70.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.insertLogStatement",
+		"onCommand:extension.deleteAllLogStatements"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": " Console Log Configuration",
+			"properties": {
+				"console-utils.icons": {
+					"type": "array",
+					"default": [
+						"🍏",
+						"🍎",
+						"🍐",
+						"🍊",
+						"🍋",
+						"🍌",
+						"🍉",
+						"🍇",
+						"🍓",
+						"🍒",
+						"🍑",
+						"🥥",
+						"🥝",
+						"🍅",
+						"🍆",
+						"🥑",
+						"🥒",
+						"🌶",
+						"🌽",
+						"🥕",
+						"🥔",
+						"🥐",
+						"🍞",
+						"🥖",
+						"🧀",
+						"🥚",
+						"🥓",
+						"🍖",
+						"🌭",
+						"🍔",
+						"🍕",
+						"🥪",
+						"🌮",
+						"🍣",
+						"🥟",
+						"🍤",
+						"🍢",
+						"🍡",
+						"🍧",
+						"🍰",
+						"🎂",
+						"🍭",
+						"🍬",
+						"🍫",
+						"🍿",
+						"🍩",
+						"🍪",
+						"🌰",
+						"🍯",
+						"🥛",
+						"🥤",
+						"🍺",
+						"🍻",
+						"🍷",
+						"🥃"
+					],
+					"description": "The prefix of the log icon."
+				},
+				"console-utils.fontColors": {
+					"type": "array",
+					"default": [
+						"#42b983",
+						"#33a5ff",
+						"#b03734",
+						"#2eafb0",
+						"#6ec1c2",
+						"#ed9ec7",
+						"#fca650",
+						"#3f7cff",
+						"#93c0a4",
+						"#ea7e5c",
+						"#f5ce50",
+						"#465975",
+						"#ffdd4d",
+						"#7f2b82",
+						"#4fff4B",
+						"#e41a6a"
+					],
+					"description": "The prefix of the log font color."
+				},
+				"console-utils.backgroundColors": {
+					"type": "array",
+					"default": [],
+					"description": "The prefix of the log background color."
+				},
+				"console-utils.fontSize": {
+					"type": "number",
+					"default": 14,
+					"description": "The font size of the log."
+				},
+				"console-utils.logType": {
+					"type": "string",
+					"enum": [
+						"log",
+						"warn",
+						"error",
+						"debug",
+						"table",
+						"info"
+					],
+					"default": "log",
+					"description": "Select the log type"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "extension.insertLogStatement",
+				"title": "Insert Log Statement"
+			},
+			{
+				"command": "extension.deleteAllLogStatements",
+				"title": "Delete all console statements"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.insertLogStatement",
+				"key": "shift+ctrl+l",
+				"mac": "shift+cmd+l",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.deleteAllLogStatements",
+				"key": "shift+ctrl+d",
+				"mac": "shift+cmd+d"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "16.x",
+		"@types/vscode": "^1.70.0",
+		"@typescript-eslint/eslint-plugin": "^5.31.0",
+		"@typescript-eslint/parser": "^5.31.0",
+		"@vscode/test-electron": "^2.1.5",
+		"eslint": "^8.20.0",
+		"glob": "^8.0.3",
+		"mocha": "^10.0.0",
+		"typescript": "^4.7.4"
+	}
 }
