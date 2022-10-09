@@ -2,7 +2,7 @@
 	"name": "vscode-js-console-utils",
 	"displayName": "javascript console utils",
 	"description": "Help insert and remove console.(*) statements",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"publisher": "vscode-convert-utils",
 	"icon": "logo.png",
 	"repository": "https://github.com/qq444716720/vscode-js-console-utils",
@@ -22,6 +22,25 @@
 			"type": "object",
 			"title": " Console Log Configuration",
 			"properties": {
+				"console-utils.quote": {
+					"type": "string",
+					"enum": [
+						"'",
+						"\""
+					],
+					"default": "\"",
+					"description": "Double quotes (\"\"), single quotes ('')"
+				},
+				"console-utils.showText": {
+					"type": "boolean",
+					"default": true,
+					"description": "Insert console with text"
+				},
+				"console-utils.showLineNumber": {
+					"type": "boolean",
+					"default": true,
+					"description": "Insert line number"
+				},
 				"console-utils.icons": {
 					"type": "array",
 					"default": [

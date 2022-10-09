@@ -60,28 +60,27 @@ export function activate(context: vscode.ExtensionContext) {
 	let insertLogStatement = vscode.commands.registerCommand('extension.insertLogStatement', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (!editor) return;
-		const { getText, getWordRangeAtPosition } = editor.document;
-		for (let index = 0; index < editor.selections.length; index++) {
-			const selection = editor.selections[index];
-			const wordRangeAtPosition = getWordRangeAtPosition(selection.active);
-			let text = getText(selection).trim();
-			if (wordRangeAtPosition)
-				text = getText(wordRangeAtPosition).trim();
-			const config = vscode.workspace.getConfiguration("console-utils");
-			const { icons, fontSize, fontColors, backgroundColors, logType } = config;
-			const icon = icons[Math.floor(Math.random() * icons.length)];
-			const color = fontColors[Math.floor(Math.random() * fontColors.length)];
-			const background = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-			let styles: string[] = [];
-			if (fontSize && fontSize !== 14) styles.push(`font-size:${fontSize}px`);
-			if (color) styles.push(`color:${color}`);
-			if (background) styles.push(`background:${background}`);
-			const prefix = ["%c", icon, text].filter(Boolean).join(' ');
-			const content = [`"${prefix}"`, `"${styles.join(';')}"`, text].filter(Boolean).join(', ');
-			vscode.commands.executeCommand('editor.action.insertLineAfter').then(() => {
-				insertText(`console.${logType}(${content});`);
-			});
-		}
+		const { getText, getWordRangeAtPosition, lineAt } = editor.document;
+		const selection = editor.selection;
+		const { lineNumber } = lineAt(selection.active.line);
+		const wordRangeAtPosition = getWordRangeAtPosition(selection.active);
+		let text = getText(selection).trim();
+		if (!text && wordRangeAtPosition)
+			text = getText(wordRangeAtPosition).trim();
+		const config = vscode.workspace.getConfiguration("console-utils");
+		const { icons, fontSize, fontColors, backgroundColors, logType, showLineNumber, showText, quote } = config;
+		const icon = icons[Math.floor(Math.random() * icons.length)];
+		const color = fontColors[Math.floor(Math.random() * fontColors.length)];
+		const background = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+		let styles: string[] = [];
+		if (fontSize && fontSize !== 14) styles.push(`font-size:${fontSize}px`);
+		if (color) styles.push(`color:${color}`);
+		if (background) styles.push(`background:${background}`);
+		const prefix = ["%c", showLineNumber && `Line:${lineNumber}`, icon, showText && text].filter(Boolean).join(' ');
+		const content = [`${quote}${prefix}${quote}`, `${quote}${styles.join(';')}${quote}`, text].filter(Boolean).join(', ');
+		vscode.commands.executeCommand('editor.action.insertLineAfter').then(() => {
+			insertText(`console.${logType}(${content});`);
+		});
 	});
 
 	const deleteAllLogStatements = vscode.commands.registerCommand('extension.deleteAllLogStatements', () => {
