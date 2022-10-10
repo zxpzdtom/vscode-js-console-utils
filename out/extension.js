@@ -70,7 +70,7 @@ function activate(context) {
             styles.push(`color:${color}`);
         if (background)
             styles.push(`background:${background}`);
-        const prefix = ["%c", showLineNumber && `Line:${lineNumber}`, icon, showText && text].filter(Boolean).join(' ');
+        const prefix = ["%c", showLineNumber && `Line:${lineNumber + 2}`, icon, showText && text].filter(Boolean).join(' ');
         const content = [`${quote}${prefix}${quote}`, `${quote}${styles.join(';')}${quote}`, text].filter(Boolean).join(', ');
         vscode.commands.executeCommand('editor.action.insertLineAfter').then(() => {
             insertText(`console.${logType}(${content});`);
