@@ -1,5 +1,5 @@
 ## 访问量
-![](https://counter.dalin.cool/zxpzdtom/vscode-js-console-utils)
+![](https://counter.anyask.dev/zxpzdtom/vscode-js-console-utils)
 
 ## 将 vscode-js-console-utils 改为彩色
 
