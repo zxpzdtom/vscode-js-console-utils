@@ -15,6 +15,7 @@
 | console-utils.backgroundColors | The prefix of the log background color. |                                                                                                                                                                       |
 | console-utils.fontSize         | The font size of the log.               | `14`                                                                                                                                                                  |
 | console-utils.logType          | Select the log type                     | `log`                                                                                                                                                                 |
+| console-utils.semicolon        | Insert Semicolon at the end                           | `true`                                                                                                                                                               |
 
 ## Installing
 
